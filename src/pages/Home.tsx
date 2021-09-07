@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 
+import { useTheme } from '../hooks/theme';
+
 import { Header } from '../components/Header';
 import { Task, TasksList } from '../components/TasksList';
 import { TodoInput } from '../components/TodoInput';
 
 export function Home() {
+  const {theme} = useTheme();
   const [tasks, setTasks] = useState<Task[]>([]);
 
   function handleAddTask(newTaskTitle: string) {
@@ -66,7 +69,7 @@ export function Home() {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
       <Header tasksCounter={tasks.length} />
 
       <TodoInput addTask={handleAddTask} />
@@ -84,6 +87,5 @@ export function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#EBEBEB'
   }
 })

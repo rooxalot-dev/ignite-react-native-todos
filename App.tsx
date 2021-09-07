@@ -1,6 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
 
+import { ThemeProvider } from './src/hooks/theme';
 import { Home } from './src/pages/Home';
 
 export default function App() {
@@ -11,7 +12,9 @@ export default function App() {
         translucent 
         backgroundColor="transparent" 
       />
-      <Home />
+      <ThemeProvider>
+        <Home />
+      </ThemeProvider>
     </>
   );
 }

@@ -3,6 +3,8 @@ import { Image, TouchableOpacity, View, Text, StyleSheet, TextInput } from 'reac
 import Icon from 'react-native-vector-icons/Feather';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
+import { useTheme } from '../hooks/theme';
+
 import { Task } from "./TasksList";
 
 import trashIcon from '../assets/icons/trash/trash.png'
@@ -16,6 +18,7 @@ interface TaskItemProps {
   }
 
 export function TaskItem({ task, index, toggleTaskDone, removeTask, editTask }: TaskItemProps) {
+  const {theme} = useTheme();
   const [editing, setEditing] = useState(false);
   const [editableTitle, setEditableTitle] = useState(task.title);
   const textInputRef = useRef<TextInput>(null)
@@ -69,7 +72,7 @@ export function TaskItem({ task, index, toggleTaskDone, removeTask, editTask }: 
           </View>
 
           <TextInput 
-            style={task.done ? styles.taskTextDone : styles.taskText} 
+            style={task.done ? styles.taskTextDone : {...styles.taskText, color: theme.text}} 
             value={editableTitle}
             ref={textInputRef}
             onChangeText={setEditableTitle}
@@ -131,7 +134,6 @@ const styles = StyleSheet.create({
       justifyContent: 'center'
     },
     taskText: {
-      color: '#666',
       fontFamily: 'Inter-Medium'
     },
     taskMarkerDone: {

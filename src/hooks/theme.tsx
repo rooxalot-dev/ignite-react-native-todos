@@ -5,7 +5,7 @@ import { Theme, themeCollection } from '../styles/theme';
 interface ThemeContextData {
     themeName: string;
     theme: Theme;
-    switchTheme: () => string;
+    switchTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextData>({} as ThemeContextData);
@@ -14,9 +14,8 @@ export const ThemeProvider: React.FC = ({ children }) => {
     const [themeName, setThemeName] = useState('light');
     const [theme, setTheme] = useState<Theme>(themeCollection[themeName]);
 
-    function switchTheme(): string {
+    function switchTheme(): void {
         setThemeName(themeName === 'light' ? 'dark' : 'light');
-        return themeName;
     }
 
     useEffect(() => {

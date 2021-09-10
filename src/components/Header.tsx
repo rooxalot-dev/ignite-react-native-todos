@@ -17,18 +17,23 @@ export function Header({ tasksCounter }: HeaderProps) {
   const [darkThemeOn, setDarkThemeOn] = useState(themeName === 'dark');
 
   function handleThemeSwitch() {
-    const themeStringName = switchTheme();
-    setDarkThemeOn(themeStringName === 'dark');
+    switchTheme();
   }
+
+  useEffect(() => {
+    setDarkThemeOn(themeName === 'dark');
+  }, [themeName]);
   
   return (
     <View style={[styles.container, { backgroundColor: theme.primary }]}>
-      <Switch 
-        thumbColor={theme.secondary}
-        value={!darkThemeOn} 
-        onChange={() => handleThemeSwitch()} />
-
-      <Image source={logoImg} />
+      <View style={styles.logoSwitcherContainer}>
+        <Image source={logoImg} />
+        <Switch
+          style={{ marginLeft: 24 }}
+          thumbColor={theme.secondary}
+          value={darkThemeOn}
+          onValueChange={() => handleThemeSwitch()} />
+      </View>
       
       <View style={styles.tasks}>
         <Text style={styles.tasksCounter}>Você tem </Text>
@@ -46,6 +51,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row'
+  },
+  logoSwitcherContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   tasks: {
     alignItems: 'center',
